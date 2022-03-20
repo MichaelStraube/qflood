@@ -2,22 +2,32 @@
 #include "./ui_mainwindow.h"
 #include <QRandomGenerator>
 #include <QStackedLayout>
+#include <QActionGroup>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 	, ui(new Ui::MainWindow)
 	, view(new View(this))
 	, scene(new QGraphicsScene(this))
-	, colors({Qt::red, Qt::blue, Qt::yellow, Qt::green, Qt::white, Qt::magenta})
+	, colors({Qt::red, Qt::blue, Qt::yellow, Qt::green, Qt::white, Qt::magenta, Qt::cyan})
 	, snd_click(new QSoundEffect(this))
 	, label_moves(new QLabel)
 	, starfield(new Starfield)
+	, level(NORMAL)
 {
 	ui->setupUi(this);
 
 	QStackedLayout *stackedLayout = new QStackedLayout;
 	stackedLayout->setStackingMode(QStackedLayout::StackAll);
 	this->centralWidget()->setLayout(stackedLayout);
+
+	// adding QActionGroup to toolbar does not work in QT Designer
+	QActionGroup *actionGroup = new QActionGroup(this);
+	actionGroup->addAction(ui->actionEasy);
+	actionGroup->addAction(ui->actionNormal);
+	actionGroup->addAction(ui->actionHard);
+	ui->toolBar->addActions(actionGroup->actions());
+	ui->actionNormal->setChecked(true);
 
 	stackedLayout->addWidget(view);
 	stackedLayout->addWidget(starfield);
@@ -112,8 +122,20 @@ void MainWindow::startNewGame()
 	win = false;
 	loose = false;
 
+	int num_colors;
+
+	if (ui->actionEasy->isChecked()) {
+		num_colors = 4;
+	}
+	if (ui->actionNormal->isChecked()) {
+		num_colors = 6;
+	}
+	if (ui->actionHard->isChecked()) {
+		num_colors = 7;
+	}
+
 	for (const auto &i : board_items) {
-		i->color = QRandomGenerator::global()->bounded(0, colors.count());
+		i->color = QRandomGenerator::global()->bounded(0, num_colors);
 		i->setBrush(colors[i->color]);
 	}
 
