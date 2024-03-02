@@ -134,6 +134,8 @@ void MainWindow::startNewGame()
 		num_colors = 7;
 	}
 
+	Q_ASSERT(num_colors <= colors.count());
+
 	for (const auto &i : board_items) {
 		i->color = QRandomGenerator::global()->bounded(0, num_colors);
 		i->setBrush(colors[i->color]);
