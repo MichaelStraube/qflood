@@ -26,8 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
 	actionGroup->addAction(ui->actionEasy);
 	actionGroup->addAction(ui->actionNormal);
 	actionGroup->addAction(ui->actionHard);
-	ui->toolBar->addActions(actionGroup->actions());
-	ui->actionNormal->setChecked(true);
 
 	stackedLayout->addWidget(view);
 	stackedLayout->addWidget(starfield);
