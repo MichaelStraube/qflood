@@ -74,13 +74,13 @@ void MainWindow::populateScene()
 	}
 }
 
-void MainWindow::floodFill(int i, int j, int old_color, int new_color)
+void MainWindow::floodFill(int i, int j, QColor old_color, QColor new_color)
 {
-	if (board_items[j * board_size + i]->color != old_color || new_color == old_color) {
+	if (board_items[j * board_size + i]->getColor() != old_color || new_color == old_color) {
 		return;
 	}
 
-	board_items[j * board_size + i]->color = new_color;
+	board_items[j * board_size + i]->setColor(new_color);
 
 	if (j + 1 < board_size) {
 		floodFill(i, j + 1, old_color, new_color);
@@ -99,7 +99,7 @@ void MainWindow::floodFill(int i, int j, int old_color, int new_color)
 bool MainWindow::checkWinning()
 {
 	for (const auto &i : board_items) {
-		if (i->color != board_items.first()->color) {
+		if (i->getColor() != board_items.first()->getColor()) {
 			return false;
 		}
 	}
@@ -135,14 +135,13 @@ void MainWindow::startNewGame()
 	Q_ASSERT(num_colors <= colors.count());
 
 	for (const auto &i : board_items) {
-		i->color = QRandomGenerator::global()->bounded(0, num_colors);
-		i->setBrush(colors[i->color]);
+		i->setColor(colors[QRandomGenerator::global()->bounded(0, num_colors)]);
 	}
 
 	updateStatusBar();
 }
 
-void MainWindow::onItemClicked(int color)
+void MainWindow::onItemClicked(QColor color)
 {
 	if (game_over) {
 		return;
@@ -152,11 +151,7 @@ void MainWindow::onItemClicked(int color)
 
 	moves++;
 
-	floodFill(0, 0, board_items[0]->color, color);
-
-	for (const auto &i : board_items) {
-		i->setBrush(colors[i->color]);
-	}
+	floodFill(0, 0, board_items[0]->getColor(), color);
 
 	if (checkWinning()) {
 		game_over = true;

@@ -7,14 +7,18 @@ class BoardItem : public QObject, public QGraphicsRectItem
 {
 	Q_OBJECT
 
+public:
+	void setColor(QColor color);
+	QColor getColor();
+
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
-public:
-	int color;
+private:
+	QColor color;
 
 signals:
-	void clicked(int color);
+	void clicked(QColor color);
 
 };
 

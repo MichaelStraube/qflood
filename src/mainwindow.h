@@ -23,7 +23,7 @@ public:
 
 private slots:
 	void startNewGame();
-	void onItemClicked(int color);
+	void onItemClicked(QColor color);
 
 private:
 	enum levels {EASY, NORMAL, HARD};
@@ -45,7 +45,7 @@ private:
 	bool loose;
 
 	void populateScene();
-	void floodFill(int i, int j, int old_color, int new_color);
+	void floodFill(int i, int j, QColor old_color, QColor new_color);
 	bool checkWinning();
 	void updateStatusBar();
 };
