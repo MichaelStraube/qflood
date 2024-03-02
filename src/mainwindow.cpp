@@ -64,8 +64,6 @@ void MainWindow::populateScene()
 		for (int j = 0; j < board_size; j++) {
 			BoardItem *item = new BoardItem;
 			item->setRect(j * item_size + j * margin, i * item_size + i * margin, item_size, item_size);
-			item->color = QRandomGenerator::global()->bounded(0, colors.count());
-			item->setBrush(colors[item->color]);
 			item->setPen(QPen(Qt::gray));
 			//item->setPen(QPen(Qt::NoPen));
 			scene->addItem((item));

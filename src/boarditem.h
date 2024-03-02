@@ -13,14 +13,6 @@ protected:
 public:
 	int color;
 
-	enum { Type = UserType + 1 };
-
-	int type() const override
-	{
-		// Enable the use of qgraphicsitem_cast with this item.
-		return Type;
-	}
-
 signals:
 	void clicked(int color);
 
