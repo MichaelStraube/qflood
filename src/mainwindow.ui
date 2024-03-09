@@ -44,6 +44,8 @@
    <addaction name="actionEasy"/>
    <addaction name="actionNormal"/>
    <addaction name="actionHard"/>
+   <addaction name="separator"/>
+   <addaction name="actionMute"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -75,6 +77,11 @@
    </property>
    <property name="text">
     <string>Hard</string>
+   </property>
+  </action>
+  <action name="actionMute">
+   <property name="text">
+    <string>Mute</string>
    </property>
   </action>
  </widget>

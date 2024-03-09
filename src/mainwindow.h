@@ -23,6 +23,7 @@ public:
 
 private slots:
 	void startNewGame();
+	void toggleSound();
 	void onItemClicked(QColor color);
 
 private:
@@ -41,6 +42,7 @@ private:
 	bool game_over;
 	bool win;
 	bool loose;
+	bool mute;
 
 	void populateScene();
 	void floodFill(int i, int j, QColor old_color, QColor new_color);

@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 	, snd_click(new QSoundEffect(this))
 	, label_moves(new QLabel)
 	, starfield(new Starfield)
+	, mute(false)
 {
 	ui->setupUi(this);
 
@@ -31,9 +32,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 	// toolbar
 	connect(ui->actionNew, &QAction::triggered, this, &MainWindow::startNewGame);
+	connect(ui->actionMute, &QAction::triggered, this, &MainWindow::toggleSound);
 
 	ui->statusbar->addWidget(label_moves);
 
+	ui->actionMute->setIcon(QIcon::fromTheme("audio-volume-high"));
 	snd_click->setSource(QUrl("qrc:/sounds/click.wav"));
 
 	populateScene();
@@ -138,13 +141,25 @@ void MainWindow::startNewGame()
 	updateStatusBar();
 }
 
+void MainWindow::toggleSound()
+{
+	mute = !mute;
+	if (mute) {
+		ui->actionMute->setIcon(QIcon::fromTheme("audio-volume-muted"));
+	} else {
+		ui->actionMute->setIcon(QIcon::fromTheme("audio-volume-high"));
+	}
+}
+
 void MainWindow::onItemClicked(QColor color)
 {
 	if (game_over) {
 		return;
 	}
 
-	snd_click->play();
+	if (!mute) {
+		snd_click->play();
+	}
 
 	moves++;
 
