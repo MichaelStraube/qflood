@@ -1,6 +1,5 @@
 #include "starfield.h"
 #include <QOpenGLFunctions_3_3_Core>
-#include <QRandomGenerator>
 
 Starfield::Starfield()
 	: timer(new QTimer(this))
