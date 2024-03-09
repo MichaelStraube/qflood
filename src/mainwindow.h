@@ -26,7 +26,6 @@ private slots:
 	void onItemClicked(QColor color);
 
 private:
-	enum levels {EASY, NORMAL, HARD};
 	Ui::MainWindow *ui;
 	View *view;
 	QGraphicsScene *scene;
@@ -38,7 +37,6 @@ private:
 	static constexpr int board_size = 14;
 	static constexpr int item_size = 35;
 	static constexpr int max_moves = 25;
-	enum levels level;
 	int moves;
 	bool game_over;
 	bool win;

@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 	, snd_click(new QSoundEffect(this))
 	, label_moves(new QLabel)
 	, starfield(new Starfield)
-	, level(NORMAL)
 {
 	ui->setupUi(this);
 
